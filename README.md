@@ -1,11 +1,17 @@
 # Bimm KMP Take Home Assignment - Base repo
 
-Don't create a PR to this repo with your solution.
+IMPORTANT: Don't create a PR to this repo with your solution.
 
+# Assignment instructions
+You should have received a separate description for your assignment. If you haven't, please contact the member of the hiring team you're in touch with.
+
+Also please verify you have received any files (JSON, xml, csv, txt, images, depending on the assignment) or any API addresses you assignment mentions. Those vary with the position you're applying to.
+
+
+# Assignment deliver instructions
 [Fork](https://github.com/reul/bimm-kmp-challenge-base/fork) or clone this repo and add the necessary code to complete your assignment, then email us with the link of the forked repo or to a zip or tarball file we can download and evaluate.
 
-It's very important that we can run the project and see it being executed ourselves, so don't make it dependent on any private repos or environment variables we might not have access to or, if you must, include an APK in the tarball or in a GitHub release in your fork.
-
+It's very important that we can run the project and see it being executed ourselves, so don't make it dependent on any private repos or environment variables we might not have access to or, if you must, include an APK in the tarball or in a GitHub release in your fork. Don't forget to include or stage any other dependencies (like json files).
 
 ## Build instructions
 This is a Kotlin Multiplatform project targeting Android, iOS.
@@ -25,3 +31,4 @@ This is a Kotlin Multiplatform project targeting Android, iOS.
 
 
 Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+
