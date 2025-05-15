@@ -5,13 +5,18 @@ import androidx.compose.runtime.*
 import kotlinx.coroutines.launch
 import com.bimm.takehomeassignmnent.data.ShopRepository
 import com.bimm.takehomeassignmnent.data.createDefaultHttpClient
-import com.bimm.takehomeassignmnent.domain.model.Shop
 import com.bimm.takehomeassignmnent.presentation.ErrorScreen
 import com.bimm.takehomeassignmnent.presentation.Screen
 import com.bimm.takehomeassignmnent.presentation.ShopDetailScreen
 import com.bimm.takehomeassignmnent.presentation.ShopListScreen
 import com.bimm.takehomeassignmnent.presentation.ShopListState
 import com.bimm.takehomeassignmnent.presentation.ShopListViewModel
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.ui.Modifier
 
 @Composable
 fun AppContent() {
@@ -31,30 +36,32 @@ fun AppContent() {
         viewModel.load()
     }
 
-    when (val screen = currentScreen) {
-        is Screen.List -> {
-            when (val state = viewModel.state) {
-                is ShopListState.Loading -> CircularProgressIndicator()
-                is ShopListState.Error -> ErrorScreen(
-                    message = state.message,
-                    onRetry = {
-                        coroutineScope.launch {
-                            viewModel.load()
+    Box(modifier = Modifier.padding(WindowInsets.systemBars.asPaddingValues())) {
+        when (val screen = currentScreen) {
+            is Screen.List -> {
+                when (val state = viewModel.state) {
+                    is ShopListState.Loading -> CircularProgressIndicator()
+                    is ShopListState.Error -> ErrorScreen(
+                        message = state.message,
+                        onRetry = {
+                            coroutineScope.launch {
+                                viewModel.load()
+                            }
                         }
-                    }
-                )
-                is ShopListState.Success -> ShopListScreen(
-                    shops = state.shops,
-                    onShopClick = { selectedShop ->
-                        currentScreen = Screen.Detail(selectedShop)
-                    }
-                )
+                    )
+                    is ShopListState.Success -> ShopListScreen(
+                        shops = state.shops,
+                        onShopClick = { selectedShop ->
+                            currentScreen = Screen.Detail(selectedShop)
+                        }
+                    )
+                }
             }
-        }
 
-        is Screen.Detail -> ShopDetailScreen(
-            shop = screen.shop,
-            onBack = { currentScreen = Screen.List }
-        )
+            is Screen.Detail -> ShopDetailScreen(
+                shop = screen.shop,
+                onBack = { currentScreen = Screen.List }
+            )
+        }
     }
 }
