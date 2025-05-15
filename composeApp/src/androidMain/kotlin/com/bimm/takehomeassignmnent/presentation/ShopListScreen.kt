@@ -20,6 +20,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import androidx.compose.ui.res.painterResource
+import com.bimm.takehomeassignmnent.R
 import com.bimm.takehomeassignmnent.domain.model.Shop
 import com.bimm.takehomeassignmnent.util.createHttpEnabledImageLoader
 
@@ -57,6 +59,8 @@ fun ShopListScreen(
                         model = shop.picture,
                         imageLoader = createHttpEnabledImageLoader(context),
                         contentDescription = "Shop image",
+                        placeholder = painterResource(R.drawable.placeholder),
+                        error = painterResource(R.drawable.image_error),
                         modifier = Modifier
                             .size(72.dp)
                             .clip(RoundedCornerShape(12.dp)),
