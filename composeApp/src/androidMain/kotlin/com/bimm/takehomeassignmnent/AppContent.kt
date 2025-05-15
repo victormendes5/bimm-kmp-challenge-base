@@ -1,7 +1,6 @@
 package com.bimm.takehomeassignmnent
 
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import kotlinx.coroutines.launch
 import com.bimm.takehomeassignmnent.data.LocalJsonShopRepository
@@ -12,7 +11,6 @@ import com.bimm.takehomeassignmnent.presentation.ShopDetailScreen
 import com.bimm.takehomeassignmnent.presentation.ShopListScreen
 import com.bimm.takehomeassignmnent.presentation.ShopListState
 import com.bimm.takehomeassignmnent.presentation.ShopListViewModel
-import kotlinx.serialization.json.Json
 
 @Composable
 fun AppContent() {
