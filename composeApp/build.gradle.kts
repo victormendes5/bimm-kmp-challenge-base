@@ -18,7 +18,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-            implementation("io.ktor:ktor-client-okhttp:2.3.4")
+            implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -32,9 +32,10 @@ kotlin {
             implementation(projects.shared)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.coil3.compose)
-            implementation("io.ktor:ktor-client-core:2.3.4")
-            implementation("io.ktor:ktor-client-content-negotiation:2.3.4")
-            implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.4")
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.coil3.network.okhttp)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
