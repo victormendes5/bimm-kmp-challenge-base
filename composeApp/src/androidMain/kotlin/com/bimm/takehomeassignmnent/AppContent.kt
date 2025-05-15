@@ -3,7 +3,8 @@ package com.bimm.takehomeassignmnent
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.*
 import kotlinx.coroutines.launch
-import com.bimm.takehomeassignmnent.data.LocalJsonShopRepository
+import com.bimm.takehomeassignmnent.data.ShopRepository
+import com.bimm.takehomeassignmnent.data.createDefaultHttpClient
 import com.bimm.takehomeassignmnent.domain.model.Shop
 import com.bimm.takehomeassignmnent.presentation.ErrorScreen
 import com.bimm.takehomeassignmnent.presentation.Screen
@@ -16,8 +17,12 @@ import com.bimm.takehomeassignmnent.presentation.ShopListViewModel
 fun AppContent() {
     var currentScreen by remember { mutableStateOf<Screen>(Screen.List) }
 
+    val client = remember { createDefaultHttpClient() }
     val repository = remember {
-        LocalJsonShopRepository { loadShopsJson() }
+        ShopRepository(
+            client = client,
+            endpoint = "https://private-4ab845-test11663.apiary-mock.com/sakeshop"
+        )
     }
     val viewModel = remember { ShopListViewModel(repository) }
     val coroutineScope = rememberCoroutineScope()
@@ -52,12 +57,4 @@ fun AppContent() {
             onBack = { currentScreen = Screen.List }
         )
     }
-}
-
-fun loadShopsJson(): String {
-    val inputStream = Shop::class.java.classLoader
-        ?.getResourceAsStream("sakeshop.json")
-        ?: error("Failed to load sakeshop.json")
-
-    return inputStream.bufferedReader().use { it.readText() }
 }
