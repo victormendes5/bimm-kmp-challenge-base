@@ -1,4 +1,4 @@
-package com.bimm.takehomeassignmnent.presentation
+package com.bimm.takehomeassignmnent.presentation.states
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*

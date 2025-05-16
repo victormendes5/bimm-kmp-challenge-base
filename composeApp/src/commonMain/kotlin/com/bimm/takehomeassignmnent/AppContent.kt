@@ -1,4 +1,4 @@
-package com.bimm.takehomeassignmnent.presentation
+package com.bimm.takehomeassignmnent
 
 
 import androidx.compose.material3.CircularProgressIndicator
@@ -14,6 +14,11 @@ import androidx.compose.foundation.layout.systemBars
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.fillMaxSize
+import com.bimm.takehomeassignmnent.presentation.states.ErrorScreen
+import com.bimm.takehomeassignmnent.presentation.shop.ShopDetailScreen
+import com.bimm.takehomeassignmnent.presentation.shop.ShopListScreen
+import com.bimm.takehomeassignmnent.presentation.shop.ShopListState
+import com.bimm.takehomeassignmnent.presentation.shop.ShopListViewModel
 
 @Composable
 fun AppContent() {

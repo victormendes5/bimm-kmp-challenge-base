@@ -1,4 +1,4 @@
-package com.bimm.takehomeassignmnent.presentation
+package com.bimm.takehomeassignmnent
 
 import com.bimm.takehomeassignmnent.domain.model.Shop
 

@@ -1,4 +1,4 @@
-package com.bimm.takehomeassignmnent.presentation
+package com.bimm.takehomeassignmnent.presentation.shop
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

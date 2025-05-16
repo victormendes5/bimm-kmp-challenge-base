@@ -1,4 +1,4 @@
-package com.bimm.takehomeassignmnent.presentation
+package com.bimm.takehomeassignmnent.presentation.shop
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -16,8 +16,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.draw.clip
 import com.bimm.takehomeassignmnent.domain.model.Shop
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import com.bimm.takehomeassignmnent.util.rememberImagePainter
 import androidx.compose.ui.platform.LocalUriHandler
 import coil3.compose.AsyncImage
 import kmptakehomeassignment.composeapp.generated.resources.Res

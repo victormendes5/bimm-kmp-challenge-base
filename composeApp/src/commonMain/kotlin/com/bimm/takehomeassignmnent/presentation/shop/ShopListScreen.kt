@@ -1,4 +1,4 @@
-package com.bimm.takehomeassignmnent.presentation
+package com.bimm.takehomeassignmnent.presentation.shop
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
