@@ -7,10 +7,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.draw.clip
 import com.bimm.takehomeassignmnent.domain.model.Shop
 import androidx.compose.foundation.BorderStroke
@@ -18,6 +16,9 @@ import androidx.compose.ui.platform.LocalUriHandler
 import com.bimm.takehomeassignmnent.presentation.components.ScreenHeader
 import com.bimm.takehomeassignmnent.presentation.components.RatingBar
 import com.bimm.takehomeassignmnent.presentation.components.RemoteImage
+import com.bimm.takehomeassignmnent.ui.theme.AppColors
+import com.bimm.takehomeassignmnent.ui.theme.Dimens
+import com.bimm.takehomeassignmnent.ui.Strings
 
 @Composable
 fun ShopDetailScreen(
@@ -30,9 +31,9 @@ fun ShopDetailScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF5F5F5))
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+            .background(AppColors.Background)
+            .padding(Dimens.Padding.Screen),
+        verticalArrangement = Arrangement.spacedBy(Dimens.Spacing.Item)
     ) {
         ScreenHeader(
             title = shop.name,
@@ -41,33 +42,33 @@ fun ShopDetailScreen(
         )
         RemoteImage(
             model = shop.picture,
-            contentDescription = "Shop image",
+            contentDescription = Strings.ShopImageDescription,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(220.dp)
-                .clip(RoundedCornerShape(14.dp))
+                .height(Dimens.Image.DetailBanner)
+                .clip(RoundedCornerShape(Dimens.Padding.Small))
         )
 
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(Dimens.Padding.Small)) {
             Text(
                 text = shop.name,
-                fontSize = 24.sp,
+                fontSize = Dimens.Font.Title,
                 fontWeight = FontWeight.Bold,
-                color = Color(0xFF212121)
+                color = AppColors.PrimaryText
             )
 
             RatingBar(rating = shop.rating)
 
             Text(
                 text = shop.description,
-                fontSize = 16.sp,
-                color = Color(0xFF424242)
+                fontSize = Dimens.Font.DetailDescription,
+                color = AppColors.PrimaryText
             )
 
             Text(
                 text = shop.address,
-                color = Color(0xFF1E88E5),
-                fontSize = 16.sp,
+                color = AppColors.LinkBlue,
+                fontSize = Dimens.Font.Body,
                 modifier = Modifier.clickable { uriHandler.openUri(shop.googleMapsLink) }
             )
         }
@@ -78,11 +79,11 @@ fun ShopDetailScreen(
             onClick = { uriHandler.openUri(shop.website) },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp),
-            colors = ButtonDefaults.outlinedButtonColors(contentColor = Color(0xFF1E88E5)),
-            border = BorderStroke(1.dp, Color(0xFF1E88E5))
+                .height(Dimens.Component.ButtonHeight),
+            colors = ButtonDefaults.outlinedButtonColors(contentColor = AppColors.LinkBlue),
+            border = BorderStroke(1.dp, AppColors.LinkBlue)
         ) {
-            Text("Visit Website")
+            Text(Strings.VisitWebsiteLabel)
         }
     }
 }

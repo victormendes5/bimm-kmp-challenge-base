@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.bimm.takehomeassignmnent.domain.model.Shop
 import com.bimm.takehomeassignmnent.domain.repository.ShopRepository
+import com.bimm.takehomeassignmnent.ui.Strings
 
 class ShopListViewModel(
     private val repository: ShopRepository
@@ -17,7 +18,7 @@ class ShopListViewModel(
             val shops = repository.getAllShops()
             ShopListState.Success(shops)
         } catch (e: Exception) {
-            ShopListState.Error(e.message ?: "Unknown error")
+            ShopListState.Error(e.message ?: Strings.UnknownErrorLabel)
         }
     }
 }

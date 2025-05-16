@@ -7,11 +7,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.bimm.takehomeassignmnent.domain.model.Shop
+import com.bimm.takehomeassignmnent.ui.theme.AppColors
+import com.bimm.takehomeassignmnent.ui.theme.Dimens
+import com.bimm.takehomeassignmnent.ui.Strings
 
 @Composable
 fun ShopListScreen(
@@ -21,26 +21,26 @@ fun ShopListScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF5F5F5))
-            .padding(12.dp)
+            .background(AppColors.Background)
+            .padding(Dimens.Padding.Screen)
     ) {
         Text(
-            text = "Local Sake Shops",
-            fontSize = 28.sp,
+            text = Strings.ScreenListTitle,
+            fontSize = Dimens.Font.ListTitle,
             fontWeight = FontWeight.Bold,
-            color = Color(0xFF212121),
-            modifier = Modifier.padding(vertical = 8.dp)
+            color = AppColors.PrimaryText,
+            modifier = Modifier.padding(vertical = Dimens.Padding.Small)
         )
         Text(
-            text = "Discover the best places to enjoy sake in your area 🍶",
-            fontSize = 16.sp,
-            color = Color(0xFF757575),
-            modifier = Modifier.padding(bottom = 12.dp)
+            text = Strings.ScreenListSubtitle,
+            fontSize = Dimens.Font.ListSubtitle,
+            color = AppColors.SecondaryText,
+            modifier = Modifier.padding(bottom = Dimens.Padding.Small)
         )
 
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(Dimens.Spacing.Item)
         ) {
             items(shops) { shop ->
                 ShopListItem(
