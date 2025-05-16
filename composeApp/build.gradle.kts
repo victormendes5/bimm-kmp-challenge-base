@@ -8,10 +8,26 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.23"
+    id("org.jetbrains.kotlin.native.cocoapods")
 }
 
 kotlin {
     androidTarget()
+
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
+    cocoapods {
+        summary = "Shared module"
+        homepage = "https://example.com"
+        version = "2.1.21"
+        ios.deploymentTarget = "14.1"
+        framework {
+            baseName = "Shared"
+            isStatic = false
+        }
+    }
 
     sourceSets {
 
@@ -20,6 +36,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.material)
+            implementation(libs.coil3.network.okhttp)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -36,7 +53,6 @@ kotlin {
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
-            implementation(libs.coil3.network.okhttp)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

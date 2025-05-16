@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import com.bimm.takehomeassignmnent.R
 import com.bimm.takehomeassignmnent.domain.model.Shop
 import com.bimm.takehomeassignmnent.util.createHttpEnabledImageLoader
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun ShopListScreen(

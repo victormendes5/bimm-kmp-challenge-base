@@ -24,15 +24,15 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.kotlinx.serialization.json)
-            implementation("io.ktor:ktor-client-core:2.3.4")
-            implementation("io.ktor:ktor-client-content-negotiation:2.3.4")
-            implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.4")
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
         androidMain.dependencies {
-            implementation("io.ktor:ktor-client-okhttp:2.3.4")
+            implementation(libs.ktor.client.okhttp)
         }
     }
 }
