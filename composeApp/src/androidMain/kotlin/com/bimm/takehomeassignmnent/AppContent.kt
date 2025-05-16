@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
+import androidx.compose.foundation.layout.fillMaxSize
 
 @Composable
 fun AppContent() {
@@ -40,7 +42,12 @@ fun AppContent() {
         when (val screen = currentScreen) {
             is Screen.List -> {
                 when (val state = viewModel.state) {
-                    is ShopListState.Loading -> CircularProgressIndicator()
+                    is ShopListState.Loading -> Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
                     is ShopListState.Error -> ErrorScreen(
                         message = state.message,
                         onRetry = {
