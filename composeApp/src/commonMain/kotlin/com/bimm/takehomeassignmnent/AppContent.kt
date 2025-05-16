@@ -4,8 +4,7 @@ package com.bimm.takehomeassignmnent
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.*
 import kotlinx.coroutines.launch
-import com.bimm.takehomeassignmnent.data.ShopRepository
-import com.bimm.takehomeassignmnent.data.createDefaultHttpClient
+
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.WindowInsets
@@ -18,31 +17,21 @@ import com.bimm.takehomeassignmnent.presentation.states.ErrorScreen
 import com.bimm.takehomeassignmnent.presentation.shop.ShopDetailScreen
 import com.bimm.takehomeassignmnent.presentation.shop.ShopListScreen
 import com.bimm.takehomeassignmnent.presentation.shop.ShopListState
-import com.bimm.takehomeassignmnent.presentation.shop.ShopListViewModel
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 
 @Composable
-fun AppContent() {
-    var currentScreen by remember { mutableStateOf<Screen>(Screen.List) }
-
-
-    val client = remember { createDefaultHttpClient() }
-    val repository = remember {
-        ShopRepository(
-            client = client,
-            endpoint = "https://private-4ab845-test11663.apiary-mock.com/sakeshop"
-        )
-    }
-    val viewModel = remember { ShopListViewModel(repository) }
+fun AppContent(
+    appViewModel: AppViewModel = remember { AppViewModel() }
+) {
     val coroutineScope = rememberCoroutineScope()
-
-    LaunchedEffect(Unit) {
-        viewModel.load()
-    }
-
     Box(modifier = Modifier.padding(WindowInsets.systemBars.asPaddingValues())) {
-        when (val screen = currentScreen) {
+        val screen = appViewModel.currentScreen
+        val state = appViewModel.shopListViewModel.state
+
+        when (screen) {
             is Screen.List -> {
-                when (val state = viewModel.state) {
+                when (state) {
                     is ShopListState.Loading -> Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
@@ -53,22 +42,20 @@ fun AppContent() {
                         message = state.message,
                         onRetry = {
                             coroutineScope.launch {
-                                viewModel.load()
+                                appViewModel.shopListViewModel.load()
                             }
                         }
                     )
                     is ShopListState.Success -> ShopListScreen(
                         shops = state.shops,
-                        onShopClick = { selectedShop ->
-                            currentScreen = Screen.Detail(selectedShop)
-                        }
+                        onShopClick = { appViewModel.onShopClick(it) }
                     )
                 }
             }
 
             is Screen.Detail -> ShopDetailScreen(
                 shop = screen.shop,
-                onBack = { currentScreen = Screen.List }
+                onBack = { appViewModel.onBack() }
             )
         }
     }
