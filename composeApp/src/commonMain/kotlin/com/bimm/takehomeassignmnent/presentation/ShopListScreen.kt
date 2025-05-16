@@ -6,11 +6,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,19 +16,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil3.compose.AsyncImage
-import androidx.compose.ui.res.painterResource
-import com.bimm.takehomeassignmnent.R
+import androidx.compose.foundation.Image
 import com.bimm.takehomeassignmnent.domain.model.Shop
-import com.bimm.takehomeassignmnent.util.createHttpEnabledImageLoader
-import org.jetbrains.compose.resources.painterResource
+import com.bimm.takehomeassignmnent.util.rememberImagePainter
 
 @Composable
 fun ShopListScreen(
     shops: List<Shop>,
     onShopClick: (Shop) -> Unit
 ) {
-    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -73,17 +66,16 @@ fun ShopListScreen(
                             .fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        AsyncImage(
-                            model = shop.picture,
-                            imageLoader = createHttpEnabledImageLoader(context),
-                            contentDescription = "Shop image",
-                            placeholder = painterResource(R.drawable.placeholder),
-                            error = painterResource(R.drawable.image_error),
-                            modifier = Modifier
-                                .size(72.dp)
-                                .clip(RoundedCornerShape(12.dp)),
-                            contentScale = ContentScale.Crop
-                        )
+                        shop.picture?.let { rememberImagePainter(it) }?.let {
+                            Image(
+                                painter = it,
+                                contentDescription = "Shop image",
+                                modifier = Modifier
+                                    .size(72.dp)
+                                    .clip(RoundedCornerShape(12.dp)),
+                                contentScale = ContentScale.Crop
+                            )
+                        }
                         Spacer(modifier = Modifier.width(16.dp))
                         Column(
                             modifier = Modifier.weight(1f)
@@ -102,11 +94,10 @@ fun ShopListScreen(
                             )
                             Spacer(modifier = Modifier.height(8.dp))
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(
-                                    imageVector = Icons.Default.Star,
-                                    contentDescription = "Rating",
-                                    tint = Color(0xFFFFC107),
-                                    modifier = Modifier.size(16.dp)
+                                Text(
+                                    text = "\u2605",
+                                    fontSize = 14.sp,
+                                    color = Color(0xFFFFC107)
                                 )
                                 Spacer(modifier = Modifier.width(4.dp))
                                 Text(

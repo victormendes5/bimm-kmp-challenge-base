@@ -1,5 +1,6 @@
 package com.bimm.takehomeassignmnent.presentation
 
+
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.*
 import kotlinx.coroutines.launch
@@ -17,6 +18,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 @Composable
 fun AppContent() {
     var currentScreen by remember { mutableStateOf<Screen>(Screen.List) }
+
 
     val client = remember { createDefaultHttpClient() }
     val repository = remember {

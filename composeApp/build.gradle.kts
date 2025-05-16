@@ -1,31 +1,22 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.23"
-    id("org.jetbrains.kotlin.native.cocoapods")
 }
 
 kotlin {
     androidTarget()
 
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-
-    cocoapods {
-        summary = "Shared module"
-        homepage = "https://example.com"
-        version = "2.1.21"
-        ios.deploymentTarget = "14.1"
-        framework {
-            baseName = "Shared"
-            isStatic = false
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "ComposeApp"
+            isStatic = true
         }
     }
 

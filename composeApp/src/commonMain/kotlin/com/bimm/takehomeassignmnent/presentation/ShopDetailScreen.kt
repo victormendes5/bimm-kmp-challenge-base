@@ -1,6 +1,5 @@
 package com.bimm.takehomeassignmnent.presentation
 
-import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
@@ -11,25 +10,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.filled.ArrowBack
-import coil3.compose.AsyncImage
-import com.bimm.takehomeassignmnent.R
 import com.bimm.takehomeassignmnent.domain.model.Shop
-
 import androidx.compose.foundation.BorderStroke
-import androidx.core.net.toUri
+import androidx.compose.foundation.Image
+import com.bimm.takehomeassignmnent.util.rememberImagePainter
+import androidx.compose.ui.platform.LocalUriHandler
 
 @Composable
-fun ShopDetailScreen(shop: Shop, onBack: () -> Unit) {
-    val context = LocalContext.current
+fun ShopDetailScreen(
+    shop: Shop,
+    onBack: () -> Unit
+) {
+
+    val uriHandler = LocalUriHandler.current
 
     Column(
         modifier = Modifier
@@ -48,10 +45,10 @@ fun ShopDetailScreen(shop: Shop, onBack: () -> Unit) {
                     .clickable { onBack() }
                     .padding(vertical = 8.dp)
             ) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back",
-                    tint = Color(0xFF1E88E5),
+                Text(
+                    text = "\u2190",
+                    fontSize = 20.sp,
+                    color = Color(0xFF1E88E5),
                     modifier = Modifier.size(20.dp)
                 )
                 Spacer(modifier = Modifier.width(6.dp))
@@ -71,17 +68,17 @@ fun ShopDetailScreen(shop: Shop, onBack: () -> Unit) {
             )
         }
 
-        AsyncImage(
-            model = shop.picture,
-            contentDescription = "Shop Image",
-            placeholder = painterResource(R.drawable.placeholder),
-            error = painterResource(R.drawable.image_error),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(220.dp)
-                .clip(RoundedCornerShape(14.dp)),
-            contentScale = ContentScale.Crop
-        )
+        shop.picture?.let { rememberImagePainter(it) }?.let {
+            Image(
+                painter = it,
+                contentDescription = "Shop Image",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(220.dp)
+                    .clip(RoundedCornerShape(14.dp)),
+                contentScale = ContentScale.Crop
+            )
+        }
 
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(
@@ -92,14 +89,18 @@ fun ShopDetailScreen(shop: Shop, onBack: () -> Unit) {
             )
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    imageVector = Icons.Default.Star,
-                    contentDescription = "Rating",
-                    tint = Color(0xFFFFC107),
+                Text(
+                    text = "\u2605",
+                    fontSize = 20.sp,
+                    color = Color(0xFFFFC107),
                     modifier = Modifier.size(20.dp)
                 )
                 Spacer(modifier = Modifier.width(6.dp))
-                Text(text = "${shop.rating}", fontSize = 16.sp, color = Color(0xFF424242))
+                Text(
+                    text = "${shop.rating}",
+                    fontSize = 16.sp,
+                    color = Color(0xFF424242)
+                )
             }
 
             Text(
@@ -112,33 +113,20 @@ fun ShopDetailScreen(shop: Shop, onBack: () -> Unit) {
                 text = shop.address,
                 color = Color(0xFF1E88E5),
                 fontSize = 16.sp,
-                modifier = Modifier.clickable {
-                    val intent = Intent(Intent.ACTION_VIEW, shop.googleMapsLink.toUri())
-                    context.startActivity(intent)
-                }
+                modifier = Modifier.clickable { uriHandler.openUri(shop.googleMapsLink) }
             )
         }
 
         Spacer(modifier = Modifier.weight(1f))
 
         OutlinedButton(
-            onClick = {
-                val intent = Intent(Intent.ACTION_VIEW, shop.website.toUri())
-                context.startActivity(intent)
-            },
+            onClick = { uriHandler.openUri(shop.website) },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),
             colors = ButtonDefaults.outlinedButtonColors(contentColor = Color(0xFF1E88E5)),
             border = BorderStroke(1.dp, Color(0xFF1E88E5))
         ) {
-            Icon(
-                imageVector = Icons.Default.Star,
-                contentDescription = null,
-                tint = Color(0xFF1E88E5),
-                modifier = Modifier.size(20.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
             Text("Visit Website")
         }
     }
