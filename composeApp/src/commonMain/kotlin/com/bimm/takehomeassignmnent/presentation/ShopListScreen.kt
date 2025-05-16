@@ -16,9 +16,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.Image
+import coil3.compose.AsyncImage
 import com.bimm.takehomeassignmnent.domain.model.Shop
-import com.bimm.takehomeassignmnent.util.rememberImagePainter
+import org.jetbrains.compose.resources.painterResource
+import kmptakehomeassignment.composeapp.generated.resources.Res
+import kmptakehomeassignment.composeapp.generated.resources.ic_placeholder
+import kmptakehomeassignment.composeapp.generated.resources.ic_image_error
 
 @Composable
 fun ShopListScreen(
@@ -66,16 +69,16 @@ fun ShopListScreen(
                             .fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        shop.picture?.let { rememberImagePainter(it) }?.let {
-                            Image(
-                                painter = it,
-                                contentDescription = "Shop image",
-                                modifier = Modifier
-                                    .size(72.dp)
-                                    .clip(RoundedCornerShape(12.dp)),
-                                contentScale = ContentScale.Crop
-                            )
-                        }
+                        AsyncImage(
+                            model = shop.picture,
+                            contentDescription = "Shop image",
+                            placeholder = painterResource(Res.drawable.ic_placeholder),
+                            error = painterResource(Res.drawable.ic_image_error),
+                            modifier = Modifier
+                                .size(72.dp)
+                                .clip(RoundedCornerShape(12.dp)),
+                            contentScale = ContentScale.Crop
+                        )
                         Spacer(modifier = Modifier.width(16.dp))
                         Column(
                             modifier = Modifier.weight(1f)

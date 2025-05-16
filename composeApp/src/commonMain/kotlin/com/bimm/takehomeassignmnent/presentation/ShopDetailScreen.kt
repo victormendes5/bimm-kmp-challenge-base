@@ -19,6 +19,11 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import com.bimm.takehomeassignmnent.util.rememberImagePainter
 import androidx.compose.ui.platform.LocalUriHandler
+import coil3.compose.AsyncImage
+import kmptakehomeassignment.composeapp.generated.resources.Res
+import kmptakehomeassignment.composeapp.generated.resources.ic_image_error
+import kmptakehomeassignment.composeapp.generated.resources.ic_placeholder
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun ShopDetailScreen(
@@ -67,18 +72,17 @@ fun ShopDetailScreen(
                 color = Color(0xFF212121)
             )
         }
-
-        shop.picture?.let { rememberImagePainter(it) }?.let {
-            Image(
-                painter = it,
-                contentDescription = "Shop Image",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(220.dp)
-                    .clip(RoundedCornerShape(14.dp)),
-                contentScale = ContentScale.Crop
-            )
-        }
+        AsyncImage(
+            model = shop.picture,
+            contentDescription = "Shop image",
+            placeholder = painterResource(Res.drawable.ic_placeholder),
+            error = painterResource(Res.drawable.ic_image_error),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(220.dp)
+                .clip(RoundedCornerShape(14.dp)),
+            contentScale = ContentScale.Crop
+        )
 
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(
