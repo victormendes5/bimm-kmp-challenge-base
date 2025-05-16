@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,18 +26,17 @@ fun ScreenHeader(
         modifier = modifier
             .fillMaxWidth()
             .clickable(onClick = onBack)
-            .padding(vertical = Dimens.Padding.Small)
+            .padding(bottom = Dimens.Padding.Small)
     ) {
         Text(
-            text = "\u2190",
-            fontSize = Dimens.Font.Title,
-            color = AppColors.LinkBlue,
-            modifier = Modifier.size(20.dp)
+            text = "\u2B05",
+            fontSize = Dimens.Font.ListTitle,
+            color = AppColors.LinkBlue
         )
-        Spacer(modifier = Modifier.width(6.dp))
+        Spacer(modifier = Modifier.width(Dimens.Padding.Small))
         Text(
             text = title,
-            fontSize = Dimens.Font.Title,
+            fontSize = Dimens.Font.ListTitle,
             fontWeight = FontWeight.Medium,
             color = AppColors.LinkBlue
         )
