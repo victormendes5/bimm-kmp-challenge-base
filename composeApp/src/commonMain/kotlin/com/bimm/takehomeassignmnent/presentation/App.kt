@@ -1,4 +1,4 @@
-package com.bimm.takehomeassignmnent
+package com.bimm.takehomeassignmnent.presentation
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*

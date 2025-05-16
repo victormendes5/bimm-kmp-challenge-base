@@ -1,16 +1,10 @@
-package com.bimm.takehomeassignmnent
+package com.bimm.takehomeassignmnent.presentation
 
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.*
 import kotlinx.coroutines.launch
 import com.bimm.takehomeassignmnent.data.ShopRepository
 import com.bimm.takehomeassignmnent.data.createDefaultHttpClient
-import com.bimm.takehomeassignmnent.presentation.ErrorScreen
-import com.bimm.takehomeassignmnent.presentation.Screen
-import com.bimm.takehomeassignmnent.presentation.ShopDetailScreen
-import com.bimm.takehomeassignmnent.presentation.ShopListScreen
-import com.bimm.takehomeassignmnent.presentation.ShopListState
-import com.bimm.takehomeassignmnent.presentation.ShopListViewModel
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.WindowInsets
