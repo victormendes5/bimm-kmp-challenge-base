@@ -4,36 +4,32 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import com.bimm.takehomeassignmnent.data.ShopRepository
 import com.bimm.takehomeassignmnent.data.createDefaultHttpClient
 import com.bimm.takehomeassignmnent.data.NetworkConfig
 import com.bimm.takehomeassignmnent.presentation.shop.ShopListViewModel
-import com.bimm.takehomeassignmnent.domain.model.Shop
+import kotlinx.coroutines.cancel
 
-class AppViewModel {
+class AppViewModel(
+    val shopListViewModel: ShopListViewModel = ShopListViewModel(
+        ShopRepository(createDefaultHttpClient(), NetworkConfig.SakeShopEndpoint)
+    ),
+    autoLoad: Boolean = true,
+    private val scope: CoroutineScope = MainScope()
+) {
+
     var currentScreen by mutableStateOf<Screen>(Screen.List)
         private set
 
-    val shopListViewModel: ShopListViewModel
-
-    private val scope = MainScope()
-
     init {
-        val client = createDefaultHttpClient()
-        val repository = ShopRepository(
-            client = client,
-            endpoint = NetworkConfig.SakeShopEndpoint
-        )
-        shopListViewModel = ShopListViewModel(repository)
-
-        scope.launch {
-            shopListViewModel.load()
+        if (autoLoad) {
+            scope.launch { shopListViewModel.load() }
         }
     }
 
-    fun onShopClick(shop: Shop) {
+    fun onShopClick(shop: com.bimm.takehomeassignmnent.domain.model.Shop) {
         currentScreen = Screen.Detail(shop)
     }
 
@@ -42,6 +38,7 @@ class AppViewModel {
     }
 
     fun dispose() {
+        shopListViewModel.dispose()
         scope.cancel()
     }
 }
