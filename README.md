@@ -1,34 +1,100 @@
-# Bimm KMP Take Home Assignment - Base repo
+# Bimm KMP Take Home Assignment
 
-IMPORTANT: Don't create a PR to this repo with your solution.
+A Kotlin Multiplatform (KMP) project designed to streamline cross-platform development for Android and iOS using Jetpack Compose and shared business logic.
 
-# Assignment instructions
-You should have received a separate description for your assignment. If you haven't, please contact the member of the hiring team you're in touch with.
+---
 
-Also please verify you have received any files (JSON, xml, csv, txt, images, depending on the assignment) or any API addresses you assignment mentions. Those vary with the position you're applying to.
+## 🚀 Features
 
+- **Kotlin Multiplatform (KMP):** Share business logic across Android and iOS platforms.
+- **Jetpack Compose:** Utilize declarative UI for Android and Compose Multiplatform for shared UI.
+- **Shared ViewModels:** Implement shared ViewModels for consistent state management.
+- **Coroutines & Flow:** Handle asynchronous operations seamlessly.
+- **Ktor Client:** Perform network operations efficiently.
+- **Multiplatform Settings:** Handle key-value storage across platforms.
+- **Dependency Injection:** Manage dependencies using Koin.
 
-# Assignment deliver instructions
-[Fork](https://github.com/reul/bimm-kmp-challenge-base/fork) or clone this repo and add the necessary code to complete your assignment, then email us with the link of the forked repo or to a zip or tarball file we can download and evaluate.
+---
 
-It's very important that we can run the project and see it being executed ourselves, so don't make it dependent on any private repos or environment variables we might not have access to or, if you must, include an APK in the tarball or in a GitHub release in your fork. Don't forget to include or stage any other dependencies (like json files).
+## 📁 Project Structure
 
-## Build instructions
-This is a Kotlin Multiplatform project targeting Android, iOS.
+```
+.
+├── androidApp/           # Android-specific code and resources
+├── iosApp/               # iOS-specific code and resources
+├── composeApp/           # Shared Kotlin Multiplatform UI and logic
+│   ├── commonMain/       # Shared business logic, UI, models, utils
+│   ├── androidMain/      # Android-specific implementations
+│   ├── iosMain/          # iOS-specific implementations
+├── build.gradle.kts      # Project-level Gradle configuration
+└── settings.gradle.kts   # Gradle settings
+```
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+---
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+## 🛠️ Getting Started
 
-* `/shared` is for the code that will be shared between all targets in the project.
-  The most important subfolder is `commonMain`. If preferred, you can add code to the platform-specific folders here too.
+### Prerequisites
 
+- **Android Studio Giraffe or later** with Kotlin Multiplatform support.
+- **Xcode 14 or later** for iOS development.
+- **Kotlin Multiplatform Mobile (KMM) plugin** for Android Studio.
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+### Clone the Repository
 
+```bash
+git clone https://github.com/victormendes5/bimm-kmp-challenge-base.git
+cd bimm-kmp-challenge-base
+```
+
+### Run on Android
+
+1. Open the project in Android Studio.
+2. Select the `androidApp` configuration.
+3. Click **Run** to build and deploy on an Android device or emulator.
+
+### Run on iOS
+
+1. Run:
+   ```bash
+   ./gradlew tasks | grep framework
+   ```
+2. Open `iosApp/iosApp.xcworkspace` in Xcode.
+3. Add `ComposeAppShared.xcframework` to your Xcode project.
+4. Select a simulator or device.
+5. Click **Run**.
+
+---
+
+## 🧪 Testing
+
+The project includes unit tests for shared modules.
+
+To run tests:
+
+```bash
+./gradlew :composeApp:allTests
+```
+
+---
+
+## 🖼 Image Loading Strategy
+
+| Platform | Loader                                |
+|----------|----------------------------------------|
+| Android  | Coil 3 (`rememberAsyncImagePainter`)   |
+| iOS      | `painterResource("placeholder.png")`   |
+
+All image loading is handled through a shared `rememberImagePainter(url)` implementation.
+
+---
+
+## 📄 License
+
+MIT License
+
+---
+
+## 📬 Contact
+
+Maintainer: [victormendes5](https://github.com/victormendes5)
