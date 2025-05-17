@@ -34,6 +34,9 @@ A Kotlin Multiplatform (KMP) project designed to streamline cross-platform devel
 
 ## 🛠️ Getting Started
 
+> ℹ️ This project was originally designed to use a static `sakeshop.json` file for shop data. Instead, I implemented a live mock API using [Apiary.io](https://apiary.io).  
+> The app fetches data from: [`https://private-4ab845-test11663.apiary-mock.com/sakeshop`](https://private-4ab845-test11663.apiary-mock.com/sakeshop)
+
 ### Prerequisites
 
 - **Android Studio Giraffe or later** with Kotlin Multiplatform support.
@@ -80,21 +83,10 @@ To run tests:
 
 ## 🖼 Image Loading Strategy
 
-| Platform | Loader                                |
-|----------|----------------------------------------|
-| Android  | Coil 3 (`rememberAsyncImagePainter`)   |
-| iOS      | `painterResource("placeholder.png")`   |
+| Platform | Loader                                      |
+|----------|---------------------------------------------|
+| Android  | Coil 3 (`rememberAsyncImagePainter`)        |
+| iOS      | Kamel (`asyncPainterResource`)              |
 
-All image loading is handled through a shared `rememberImagePainter(url)` implementation.
-
----
-
-## 📄 License
-
-MIT License
-
----
-
-## 📬 Contact
-
-Maintainer: [victormendes5](https://github.com/victormendes5)
+All image loading is handled through a shared `rememberImagePainter(url)` implementation using `expect/actual`.
+Fallback placeholders are used on loading and failure.
