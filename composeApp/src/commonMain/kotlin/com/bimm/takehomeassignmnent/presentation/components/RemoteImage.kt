@@ -1,9 +1,10 @@
 package com.bimm.takehomeassignmnent.presentation.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import coil3.compose.AsyncImage
+import com.bimm.takehomeassignmnent.util.rememberImagePainter
 import kmptakehomeassignment.composeapp.generated.resources.Res
 import kmptakehomeassignment.composeapp.generated.resources.ic_image_error
 import kmptakehomeassignment.composeapp.generated.resources.ic_placeholder
@@ -16,11 +17,15 @@ fun RemoteImage(
     modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Crop
 ) {
-    AsyncImage(
+    val painter = rememberImagePainter(
         model = model,
-        contentDescription = contentDescription,
         placeholder = painterResource(Res.drawable.ic_placeholder),
-        error = painterResource(Res.drawable.ic_image_error),
+        error = painterResource(Res.drawable.ic_image_error)
+    )
+
+    Image(
+        painter = painter,
+        contentDescription = contentDescription,
         modifier = modifier,
         contentScale = contentScale
     )

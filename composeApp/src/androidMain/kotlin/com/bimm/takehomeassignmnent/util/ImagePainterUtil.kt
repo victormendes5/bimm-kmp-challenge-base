@@ -5,6 +5,14 @@ import androidx.compose.ui.graphics.painter.Painter
 import coil3.compose.rememberAsyncImagePainter
 
 @Composable
-actual fun rememberImagePainter(url: String): Painter {
-    return rememberAsyncImagePainter(url)
+actual fun rememberImagePainter(
+    model: String?,
+    placeholder: Painter,
+    error: Painter
+): Painter {
+    return rememberAsyncImagePainter(
+        model = model,
+        placeholder = placeholder,
+        error = error
+    )
 }
